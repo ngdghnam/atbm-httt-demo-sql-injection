@@ -48,18 +48,6 @@ export const createUserTable = async () => {
         
         console.log('>>> Users table created successfully or already exists');
         
-        // Optional: Insert some sample data if table is empty
-        // const [rows] = await connection.raw('SELECT COUNT(*) as count FROM users');
-        // if (rows[0].count === 0) {
-        //     await connection.raw(`
-        //         INSERT INTO users (username, email, password) VALUES 
-        //         ('Hoai Nam', 'admin@example.com', 'hashed_password_here'),
-        //         ('Quy Hai', 'user1@example.com', 'hashed_password_here'),
-        //         ('testuser', 'test@example.com', 'hashed_password_here')
-        //     `);
-        //     console.log('>>> Sample users inserted');
-        // }
-        
     } catch (error) {
         if (error instanceof Error) {
             throw new Error(`User table creation failed: ${error.message}`);

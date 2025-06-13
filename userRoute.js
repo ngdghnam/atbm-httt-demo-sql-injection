@@ -1,10 +1,11 @@
 import express from "express"
 import { handleCreateUser, handleGetAllUsers } from "./controller.js"
-import { handleLogin } from "./auth.js"
+import { handleLogin, handleLoginSQLInjection } from "./auth.js"
 
 const router = express.Router()
 
 router.post("/create-user", handleCreateUser)
-router.post("/", handleLogin, handleGetAllUsers)
+router.post("/normally", handleLogin, handleGetAllUsers)
+router.post("/sql-injection", handleLoginSQLInjection, handleGetAllUsers)
 
 export default router

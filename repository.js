@@ -19,7 +19,7 @@ export const getUserByUsername = async (username) => {
 };
 
 export const getUserByUsernameAndPassword = async (username, password) => {
-    const hashedPassword = md5(password); // simulate insecure password hashing
+    const hashedPassword = md5(password);
 
     const rawQuery = `
         SELECT * FROM users 
@@ -27,6 +27,8 @@ export const getUserByUsernameAndPassword = async (username, password) => {
         AND password = '${hashedPassword}'
     `;
 
+    console.log(">>> Executing raw SQL:", rawQuery); // show dangerous query
+
     const result = await database.raw(rawQuery);
-    return result.rows?.[0] || result[0];
+    return result.rows?.[0] || result[0]; // for PostgreSQL/MySQL
 };
