@@ -8,8 +8,11 @@ export const handleLogin = async (req, res, next) => {
         return res.status(403).json({ message: "username or password is required" });
     }
 
-    if (password === `' OR '1'='1` || username === `' OR '1'='1`) {
-        return res.status(500).json({ message: "Emergency!! The server is being attacked" });
+    // 2. Simple SQL injection pattern detection
+    const sqliPattern = /('|--|;|=|OR|AND)/i;
+    if (sqliPattern.test(username) || sqliPattern.test(password)) {
+        console.warn("Potential SQL Injection Attempt:", { username, password });
+        return res.status(403).json({ message: "Emergency!! The server is being attacked" });
     }
 
     const existedUser = await getUserByUsername(username);
